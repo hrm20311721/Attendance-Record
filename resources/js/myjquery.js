@@ -46,7 +46,7 @@ window.onload = function () {
 
             $.ajax({
                 type: "GET",
-                url: "/grades/kids",
+                url: "/grades",
                 data: { 'grade': grade_id },
                 dataType: "json"
             }).done(function (data) {
@@ -329,9 +329,6 @@ window.onload = function () {
             });
 
         });
-
-
-
 
     });
 };

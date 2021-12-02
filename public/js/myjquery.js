@@ -49,7 +49,7 @@ window.onload = function () {
       var grade_id = $(this).val();
       $.ajax({
         type: "GET",
-        url: "/grades/kids",
+        url: "/grades",
         data: {
           'grade': grade_id
         },

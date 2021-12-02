@@ -33,7 +33,6 @@ class KidsController extends Controller
 
         if ($grade == 0) {
             $kids = Kid::all();
-            var_dump($grade);
         } else {
             $kids = Kid::where('grade_id', $grade)->get();
         }

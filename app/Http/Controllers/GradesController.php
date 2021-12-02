@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Kid;
 use Illuminate\Http\Request;
 
 class GradesController extends Controller
@@ -12,9 +13,18 @@ class GradesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $grade = $request->grade;
+        $grades = Grade::all();
+
+        if ($grade == 0) {
+            $kids = Kid::all();
+        } else {
+            $kids = Kid::where('grade_id', $grade)->get();
+        }
+
+        return ['data' => $kids];
     }
 
     /**

@@ -10,9 +10,9 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <a class="list-group-item list-group-item-action active" href="{{ route('grades.kids',['grade' => 0]) }}">全園児</a>
+                    <a class="list-group-item list-group-item-action active" href="{{ route('kids.index',['grade' => 0]) }}">全園児</a>
                     @foreach ($grades as $grade )
-                    <a class="list-group-item list-group-item-action" href="{{ route('grades.kids',['grade' => $grade->id]) }}">{{ $grade->name }}</a>
+                    <a class="list-group-item list-group-item-action" href="{{ route('kids.index',['grade' => $grade->id]) }}">{{ $grade->name }}</a>
                     @endforeach
                 </ul>
             </div>

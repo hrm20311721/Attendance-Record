@@ -57,7 +57,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @can('user-higher')
-                                        <a class="dropdown-item" href="{{ route('grades.kids',['grade' => 0]) }}">園児一覧</a>
+                                        <a class="dropdown-item" href="{{ route('kids.index',['grade' => 0]) }}">園児一覧</a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

@@ -43,14 +43,15 @@ Route::post('/password/reset',[Auth\ResetPasswordController::class,'reset']);
 Route::group(['middleware' => ['auth','can:user-higher']], function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('grades/kids/{grade}',[KidsController::class,'index'])->name('grades.kids');
+    Route::get('grades/{grade}', [GradesController::class, 'index'])->name('grades.index');
+
 
     //レコード登録関連
     Route::resource('records', RecordsController::class)->only(['index','create','store']);
     //降園記録
     Route::post('records/{record}/leave', [RecordsController::class, 'leave']);
     //園児関連(閲覧のみ)
-    Route::resource('grades.kids', KidsController::class)->only(['index']);
+    Route::get('grades/kids/{grade}', [KidsController::class, 'index'])->name('kids.index');
     //保護者関連
     Route::resource('guardians', GuardiansController::class)->only(['create', 'store', 'edit', 'update','destroy']);
     //習い事関連
