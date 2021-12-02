@@ -25,14 +25,29 @@
                 園児一覧
             </div>
             <div class="card-body">
-                <div class="list-group accordion" id="accordion">
+                <div class="accordion" id="accordion">
                     @foreach ($kids as $kid )
-                    <div class="list-group-item list-group-item-action mb-0 acordion-item" id="heading{{$kid->id}}">
-                        <h5 class="acordion-header mb-0" data-toggle="collapse" data-target="#detail{{$kid->id}}">{{ $kid->name }}</h5>
-                    </div>
-                    <div class="list-group-item mb-0 accordion-collapse collapse" aria-labelledby="heading{{$kid->id}}" data-parent="#accordion" id="detail{{$kid->id}}">
-                        <div class="accordion-body">
-                            <p for="guardian">保護者</p>
+                    <div class="mb-0 accordion-item">
+                        <h5 class="accordion-header mb-0" id="heading{{$kid->id}}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#detail{{$kid->id}} " aria-expanded="false" aria-controls="detail{{$kid->id}}">
+                                {{ $kid->name }}
+                            </button>
+                        </h5>
+                        <div id="detail{{$kid->id}}" class="mb-0 accordion-collapse collapse" aria-labelledby="heading{{$kid->id}}" data-bs-parent="#accordion">
+                            <div class="accordion-body d-flex justify-content-between">
+                                <div class="col-md-5">
+                                    <dt for="guardian" class="form-label">保護者</dt>
+                                    @foreach ($kid->guardians as $guardian)
+                                    <dd>{{$guardian->name}}</dd>
+                                    @endforeach
+                                </div>
+                                <div class="col-md-5">
+                                    <dt for="guardian" class="form-label">習い事</dt>
+                                    @foreach ($kid->lessons as $lesson)
+                                    <dd>{{$lesson->name}}</dd>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @endforeach
