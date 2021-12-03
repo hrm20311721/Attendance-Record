@@ -45,12 +45,12 @@
                             <td>
                                 <div class="btn-group align-items-center">
                                     <!--　編集モーダルを開くボタン -->
-                                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#edit-record" value="{{$record->id}}">
-                                        <i class="fa fa-edit edit-item"></i>
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#edit-record" value="{{$record->id}}">
+                                        <i class="far fa-edit edit-item"></i>
                                     </button>
                                     <!-- 削除確認モーダルを開くボタン -->
-                                    <button type="submit" class="btn btn-outline-secondary"data-toggle="modal" data-target="#delete-record" value="{{ $record->id }}">
-                                        <i class="fa fa-trash"></i>
+                                    <button type="submit" class="btn btn-outline-secondary"data-bs-toggle="modal" data-bs-target="#delete-record" value="{{ $record->id }}">
+                                        <i class="far fa-trash-alt"></i>
                                     </button>
                                 </div>
                             </td>
@@ -63,12 +63,12 @@
         </div>
     </div>
     <!-- 編集モーダル -->
-    <div class="modal fade" data-backdrop="static" tabindex="-1" id="edit-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalBasicLabel">レコードを編集する</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="modal-body">
                     <form class="mb-0">
@@ -118,7 +118,7 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">キャンセル</button>
                     <button class="btn btn-primary btn-modal-submit" data-route="record-update">保存</button>
                 </div>
                 </form>

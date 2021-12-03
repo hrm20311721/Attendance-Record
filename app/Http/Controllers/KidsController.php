@@ -38,6 +38,7 @@ class KidsController extends Controller
         }
 
         return view('kids.index', [
+            'grade_id'         => $grade,
             'kids'          => $kids,
             'grades'        => $grades
         ]);

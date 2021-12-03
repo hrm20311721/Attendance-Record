@@ -10,9 +10,9 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <a class="list-group-item list-group-item-action active" href="{{ route('kids.index',['grade' => 0]) }}">全園児</a>
+                    <a class="list-group-item list-group-item-action @if ($grade_id == 0) active @endif" href="{{ route('kids.index',['grade' => 0]) }}">全園児</a>
                     @foreach ($grades as $grade )
-                    <a class="list-group-item list-group-item-action" href="{{ route('kids.index',['grade' => $grade->id]) }}">{{ $grade->name }}</a>
+                    <a class="list-group-item list-group-item-action @if ($grade_id == $grade->id) active @endif" href="{{ route('kids.index',['grade' => $grade->id]) }}">{{ $grade->name }}</a>
                     @endforeach
                 </ul>
             </div>
@@ -34,15 +34,30 @@
                             </button>
                         </h5>
                         <div id="detail{{$kid->id}}" class="mb-0 accordion-collapse collapse" aria-labelledby="heading{{$kid->id}}" data-bs-parent="#accordion">
-                            <div class="accordion-body d-flex justify-content-between">
-                                <div class="col-md-5">
-                                    <dt for="guardian" class="form-label">保護者</dt>
+                            <div class="accordion-body d-flex justify-content-around">
+                                <div class="col-5">
+                                    <div class="d-flex justify-content-around align-items-center border-bottom">
+                                        <dt for="guardian" class="form-label p-0 m-0">保護者</dt>
+                                        <button class="btn dropdown-toggle" type="button" id="guardianEditDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="guardianEditDropdown">
+                                            <li><a href="{{ route('guardians.edit',['guardian' => $kid->id])}}" class="dropdown-item">編集</a></li>
+                                            <li><a href="{{ route('guardians.create',['kid' => $kid->id])}}" class="dropdown-item">追加</a></li>
+                                        </ul>
+                                    </div>
                                     @foreach ($kid->guardians as $guardian)
                                     <dd>{{$guardian->name}}</dd>
                                     @endforeach
                                 </div>
-                                <div class="col-md-5">
-                                    <dt for="guardian" class="form-label">習い事</dt>
+                                <div class="col-5">
+                                    <div class="d-flex justify-content-around align-items-center border-bottom">
+                                        <dt for="guardian" class="form-label p-0 m-0">習い事</dt>
+                                        <button class="btn dropdown-toggle" type="button" id="guardianEditDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </div>
                                     @foreach ($kid->lessons as $lesson)
                                     <dd>{{$lesson->name}}</dd>
                                     @endforeach

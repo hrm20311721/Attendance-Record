@@ -40,7 +40,7 @@ window.onload = function () {
             }
         });
 
-        //クラスを選ぶと園児名絞り込み
+        //クラスを選ぶと園児名絞り込み@home
         $('#record_grade').on('change', function () {
             var grade_id = $(this).val();
 
@@ -65,7 +65,7 @@ window.onload = function () {
 
         });
 
-        //モーダルを表示
+        //登園記録モーダルを表示
         $('.modal').on('show.bs.modal', function (e) {
             var id = $(e.relatedTarget).attr('value'); //record_idかkid_idを受け取る
             var route;
