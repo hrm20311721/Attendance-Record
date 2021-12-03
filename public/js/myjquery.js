@@ -63,7 +63,7 @@ window.onload = function () {
         $.each(data, function (key, value) {
           $('#record_kids').append($('<a>').text(value.name).attr({
             'class': "list-group-item list-group-item-action",
-            'data-toggle': "modal",
+            'data-bs-toggle': "modal",
             'data-bs-target': "#create-record",
             'role': "tab",
             'value': value.id

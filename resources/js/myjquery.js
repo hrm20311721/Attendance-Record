@@ -56,7 +56,7 @@ window.onload = function () {
                 data = data.data;
                 //optionにセット
                 $.each(data, function (key, value) {
-                    $('#record_kids').append($('<a>').text(value.name).attr({ 'class': "list-group-item list-group-item-action", 'data-toggle': "modal", 'data-bs-target': "#create-record", 'role': "tab", 'value': value.id, }));
+                    $('#record_kids').append($('<a>').text(value.name).attr({ 'class': "list-group-item list-group-item-action", 'data-bs-toggle': "modal", 'data-bs-target': "#create-record", 'role': "tab", 'value': value.id, }));
                 });
             }).fail(function (res) {
                 var res = res.responseJSON.errors;
