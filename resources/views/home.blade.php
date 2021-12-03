@@ -25,7 +25,7 @@
                 <label for="record_kids">お子さんの名前</label>
                 <div class="list-group" id="record_kids" role="tablist">
                     @foreach ($kids as $kid )
-                        <a type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-record" role="tab" value="{{ $kid->id }}">{{ $kid->name }}</a>
+                        <a type="button" class="list-group-item list-group-item-action" data-toggle="modal" data-target="#create-record" role="tab" value="{{ $kid->id }}">{{ $kid->name }}</a>
                     @endforeach
                 </div>
                 {{ $kids->links() }}
@@ -34,12 +34,12 @@
     </div>
 </div>
 <!-- 登録モーダル -->
-<div class="modal fade"data-bs-backdrop="static" tabindex="-1" id="create-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" >
+<div class="modal fade"data-backdrop="static" tabindex="-1" id="create-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalBasicLabel">登園記録をつける</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body" id="modal-body">
                 <form class="mb-0">
