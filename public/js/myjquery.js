@@ -49,7 +49,7 @@ window.onload = function () {
       var grade_id = $(this).val();
       $.ajax({
         type: "GET",
-        url: "/grades",
+        url: "grades",
         data: {
           'grade': grade_id
         },
@@ -64,7 +64,7 @@ window.onload = function () {
           $('#record_kids').append($('<a>').text(value.name).attr({
             'class': "list-group-item list-group-item-action",
             'data-toggle': "modal",
-            'data-target': "#create-record",
+            'data-bs-target': "#create-record",
             'role': "tab",
             'value': value.id
           }));

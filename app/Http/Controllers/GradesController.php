@@ -16,8 +16,7 @@ class GradesController extends Controller
     public function index(Request $request)
     {
         $grade = $request->grade;
-        $grades = Grade::all();
-
+        
         if ($grade == 0) {
             $kids = Kid::all();
         } else {

@@ -35,15 +35,11 @@ Route::get('/password/reset/{token}',[Auth\ResetPasswordController::class,'showR
 Route::post('/password/reset',[Auth\ResetPasswordController::class,'reset']);
 
 
-
-
-
-
 //ユーザー以上
 Route::group(['middleware' => ['auth','can:user-higher']], function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('grades/{grade}', [GradesController::class, 'index'])->name('grades.index');
+    Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
 
 
     //レコード登録関連
