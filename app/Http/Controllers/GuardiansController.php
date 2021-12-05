@@ -55,9 +55,12 @@ class GuardiansController extends Controller
      * @param  \App\Models\Guardian  $guardian
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guardian $guardian)
+    public function edit(Request $request, Guardian $guardian)
     {
-        //
+        $kid_id = $request->kid_id;
+        $guardians = $guardian->getGuardians($kid_id);
+
+        return ['guardians'=> $guardians];
     }
 
     /**

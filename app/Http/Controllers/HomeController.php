@@ -23,7 +23,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Grade $grade, Kid $kid)
+    public function index(Kid $kid)
     {
         $grades = Grade::all();
         $kids = $kid->getAllKids();

@@ -126,7 +126,7 @@
         </div>
     </div>
     <!-- 削除確認モーダル -->
-    <div class="modal fade" data-backdrop="static" tabindex="-1" id="record-delete" role="dialog"
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="record-delete" role="dialog"
         aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

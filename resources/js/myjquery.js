@@ -406,5 +406,25 @@ window.onload = function () {
             });
         });
 
+        //保護者編集モーダル表示
+        $('#guardian-edit').on('show.bs.modal', function (e) {
+            let kid_id = $(e.relatedTarget).data('id');
+            let url = '/guardians/' + kid_id + '/edit';
+            let data = { 'kid_id': kid_id };
+            let guardianRows = '';
+
+            $('.guardians').empty();
+
+            doAjax(url, data).then(function (data) {
+                let guardians = data.guardians;
+                $.each(guardians, function (index, guardian) {
+                    guardianRows += '<tr><input type="hidden" value="'+guardian.id+'" name="guardian_id"><td scope="row" class="col-3"><input type="text" value="' + guardian.relation + '" class="col-12 border-0 bg-transparent text-center" name="relation"></td><td class="col-9"><input type="text" value="' + guardian.name + '" class="col-12 border-0 bg-transparent text-center" name="name"></td></tr>'
+                });
+
+                $('.guardians').append(guardianRows);
+            });
+        });
+
     });
 };
+

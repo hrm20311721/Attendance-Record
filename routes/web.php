@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth','can:user-higher']], function(){
     //保護者関連
     Route::resource('guardians', GuardiansController::class)->only(['create', 'store', 'edit', 'update','destroy']);
     //習い事関連
-    Route::resource('guardians', LessonsController::class)->only(['create', 'store','edit', 'update', 'destroy']);
+    Route::resource('lessons', LessonsController::class)->only(['create', 'store','edit', 'update', 'destroy']);
 
 });
 

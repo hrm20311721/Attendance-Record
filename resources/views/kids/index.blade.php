@@ -42,7 +42,7 @@
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="guardianEditDropdown">
-                                            <li><a href="{{ route('guardians.edit',['guardian' => $kid->id])}}" class="dropdown-item">編集</a></li>
+                                            <li><a href="#guardian-edit" class="dropdown-item" data-bs-toggle="modal" data-id="{{$kid->id}}">編集</a></li>
                                             <li><a href="{{ route('guardians.create',['kid' => $kid->id])}}" class="dropdown-item">追加</a></li>
                                         </ul>
                                     </div>
@@ -70,6 +70,39 @@
             </div>
         </div>
     </div>
+    <!-- 保護者編集モーダル -->
+    <div class="modal fade"  data-bs-backdrop="static" tabindex="-1" id="guardian-edit" role="dialog" aria-labelledby="guardian-show-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">保護者情報を修正する</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-responsive table-bordered">
+                        <thead class="thead-default">
+                            <tr>
+                                <th class="col-3 text-center">続柄</th>
+                                <th class="col-9 text-center">名前</th>
+                            </tr>
+                        </thead>
+                        <tbody class="guardians">
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary guardian-update-btn">更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 保護者編集モーダル -->
+    <!-- 保護者追加モーダル -->
+    <!-- 習い事詳細モーダル -->
+    <!-- 習い事編集モーダル -->
+    <!-- 習い事削除モーダル -->
 </div>
 @endsection
 
