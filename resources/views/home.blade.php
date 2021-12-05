@@ -25,7 +25,7 @@
                 <label for="record_kids" class="mb-1">お子さんの名前</label>
                 <div class="list-group mb-3" id="record_kids" role="tablist">
                     @foreach ($kids as $kid )
-                        <a type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#create-record" role="tab" value="{{ $kid->id }}">{{ $kid->name }}</a>
+                        <a type="button" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#attendance-record" role="tab" value="{{ $kid->id }}">{{ $kid->name }}</a>
                     @endforeach
                 </div>
                 {{ $kids->links() }}
@@ -34,7 +34,7 @@
     </div>
 </div>
 <!-- 登録モーダル -->
-<div class="modal fade"data-bs-backdrop="static" tabindex="-1" id="create-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" >
+<div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="attendance-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,6 +75,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 降園 -->
                     <div class="leave">
                         <div class="row align-items-center px-3 mb-3 pu_guardian">
                             <label for="pu_guardian_id" class="form-label col-md-4 p-0">お迎えに来た人：</label>
@@ -82,11 +83,11 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-row justify-content-center d-flex">
-                        <button class="btn btn-info btn-lg btn-modal-submit morning" data-route="record-store" value="">登園</button>
+                    <div class="form-row justify-content-center morning d-flex">
+                        <button class="btn btn-info btn-lg btn-modal-submit morning" value="" id="attend">登園</button>
                     </div>
-                    <div class="form-row justify-content-center d-flex">
-                        <button class="btn btn-info btn-lg btn-modal-submit leave" data-route="record-leave" value="">降園</button>
+                    <div class="form-row justify-content-center d-flex leave">
+                        <button class="btn btn-info btn-lg btn-modal-submit leave" value="" id="leave">降園</button>
                     </div>
 
                 </form>

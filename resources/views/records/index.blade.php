@@ -45,11 +45,11 @@
                             <td>
                                 <div class="btn-group align-items-center">
                                     <!--　編集モーダルを開くボタン -->
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#edit-record" value="{{$record->id}}">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#record-edit" value="{{$record->id}}">
                                         <i class="far fa-edit edit-item"></i>
                                     </button>
                                     <!-- 削除確認モーダルを開くボタン -->
-                                    <button type="submit" class="btn btn-outline-secondary"data-bs-toggle="modal" data-bs-target="#delete-record" value="{{ $record->id }}">
+                                    <button type="submit" class="btn btn-outline-secondary"data-bs-toggle="modal" data-bs-target="#record-delete" value="{{ $record->id }}">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </div>
@@ -63,7 +63,7 @@
         </div>
     </div>
     <!-- 編集モーダル -->
-    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="edit-record" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="record-edit" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -119,14 +119,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">キャンセル</button>
-                    <button class="btn btn-primary btn-modal-submit" data-route="record-update">保存</button>
+                    <button class="btn btn-primary btn-modal-submit" id="record-update">保存</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- 削除確認モーダル -->
-    <div class="modal fade" data-backdrop="static" tabindex="-1" id="delete-record" role="dialog"
+    <div class="modal fade" data-backdrop="static" tabindex="-1" id="record-delete" role="dialog"
         aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -172,7 +172,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal">キャンセル</button>
-                        <button type="button" class="btn btn-primary btn-modal-submit" data-route="record-destroy">削除</button>
+                        <button type="button" class="btn btn-primary btn-modal-submit" id="record-destroy">削除</button>
                     </div>
                 </form>
             </div>
