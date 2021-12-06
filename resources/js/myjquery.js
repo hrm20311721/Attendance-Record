@@ -1,5 +1,6 @@
 const { Callbacks } = require("jquery");
 
+
 window.onload = function () {
     $(function () {
 
@@ -377,6 +378,8 @@ window.onload = function () {
                 'pu_time': strToDate($('.pu_time input').val(), dateStr)
             };
             let message = '更新できました。';
+            let button = $(this);
+
             doAjax(url, data, 'POST').then(function (data) {
                 successMessage(message);
                 changeToClose(button);
@@ -397,6 +400,7 @@ window.onload = function () {
             let url = '/records/' + record_id;
             let data = { '_method': "DELETE" };
             let message = '削除できました。';
+            let button = $(this);
 
             doAjax(url, data, 'POST').then(function (data) {
                 successMessage(message);
@@ -424,6 +428,51 @@ window.onload = function () {
                 $('.guardians').append(guardianRows);
             });
         });
+
+        //保護者更新
+        $('#guardian-update').on('click', function (e) {
+            e.preventDefault();
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            let guardianRow = $('#guardian-table>.guardians tr');
+            let button = $(this);
+            let req = {'_method':'PUT'};
+            let url = '/guardians/update';
+            let data = {};
+
+
+            $.each(guardianRow, function (index, guardian) {
+                let guardian_id = $(guardian).find('input[name="guardian_id"]').val();
+                let relation = $(guardian).find('input[name="relation"]').val();
+                let name = $(guardian).find('input[name="name"]').val();
+                data[guardian_id] = { 'relation': relation, 'name': name }
+            });
+            req['data'] = data;
+
+            doAjax(url, req, 'POST').then(function (data) {
+                console.log(data);
+                successMessage('更新できました。');
+                changeToClose(button);
+            }, function (res) {
+                errorMessage(res, button);
+            })
+
+        })
+
+        //保護者削除モーダル表示
+
+        //保護者削除
+
+        //習い事編集モーダル表示
+
+        //習い事更新
+
+        //習い事削除モーダル表示
+
+        //習い事削除
 
     });
 };

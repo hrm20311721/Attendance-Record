@@ -79,7 +79,7 @@
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-hover table-responsive table-bordered">
+                    <table class="table table-hover table-responsive table-bordered" id="guardian-table">
                         <thead class="thead-default">
                             <tr>
                                 <th class="col-3 text-center">続柄</th>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="button" class="btn btn-primary guardian-update-btn">更新</button>
+                    <button type="button" class="btn btn-primary guardian-update-btn btn-modal-submit" id="guardian-update">更新</button>
                 </div>
             </div>
         </div>

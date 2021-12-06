@@ -26,4 +26,13 @@ class Guardian extends Model
         return $guardians;
     }
 
+    public function guardianUpdate(Int $guardian_id, Array $data)
+    {
+        $guardian = Guardian::where('id',$guardian_id)->find($guardian_id);
+        $guardian->relation = $data['relation'];
+        $guardian->name = $data['name'];
+        $guardian->save();
+        return;
+    }
+
 }

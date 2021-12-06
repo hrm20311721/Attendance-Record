@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Guardian;
 use App\Models\Kid;
-use App\Models\Lesson;
 use App\Models\Record;
 use App\Rules\OnceADay;
 use Illuminate\Http\Request;

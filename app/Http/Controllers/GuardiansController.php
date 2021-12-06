@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guardian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GuardiansController extends Controller
 {
@@ -70,9 +71,21 @@ class GuardiansController extends Controller
      * @param  \App\Models\Guardian  $guardian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guardian $guardian)
+    public function update(Request $request,Guardian $guardian)
     {
-        //
+        $data = $request->data;
+
+        foreach($data as $guardian_id=>$value){
+            $validator = Validator::make($value, [
+                'relation'  => ['required', 'string', 'max:10'],
+                'name'      => ['required', 'string', 'max:30']
+            ]);
+
+            $validator->validate();
+            $guardian->guardianUpdate($guardian_id, $value);
+        };
+
+        return response()->json();
     }
 
     /**

@@ -49,7 +49,8 @@ Route::group(['middleware' => ['auth','can:user-higher']], function(){
     //園児関連(閲覧のみ)
     Route::get('grades/kids/{grade}', [KidsController::class, 'index'])->name('kids.index');
     //保護者関連
-    Route::resource('guardians', GuardiansController::class)->only(['create', 'store', 'edit', 'update','destroy']);
+    Route::resource('guardians', GuardiansController::class)->only(['create', 'store', 'edit', 'destroy']);
+    Route::put('guardians/update',[GuardiansController::class,'update'])->name('guardians.update');
     //習い事関連
     Route::resource('lessons', LessonsController::class)->only(['create', 'store','edit', 'update', 'destroy']);
 
