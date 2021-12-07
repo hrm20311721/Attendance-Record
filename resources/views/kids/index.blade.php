@@ -46,7 +46,7 @@
                                         </a>
                                     </div>
                                     @foreach ($kid->guardians as $guardian)
-                                    <div class="d-flex align-items-center justify-content-between justify-content-lg-around">
+                                    <div class="d-flex align-items-center justify-content-between justify-content-md-around">
                                         <div class="text-left">
                                             <dd class="m-0 fs-6">{{$guardian->name}}</dd>
                                         </div>
@@ -75,12 +75,11 @@
                                     <div class="text-center border-bottom d-flex justify-content-around align-items-center">
                                         <dt for="lesson" class="form-label p-0 m-0">習い事</dt>
                                         <!--　追加モーダル表示ボタン -->
-                                        <a href="#lesson-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0"
-                                            type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
+                                        <a href="#lesson-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0" data-bs-target="#lesson-create" type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
                                         </a>
                                     </div>
                                     @foreach ($kid->lessons as $lesson)
-                                    <div class="d-flex align-items-center justify-content-between justify-content-lg-around">
+                                    <div class="d-flex align-items-center justify-content-between justify-content-md-around">
                                         <div class="text-left">
                                             <dd class="m-0 fs-6">{{$lesson->name}}</dd>
                                         </div>
@@ -111,6 +110,50 @@
                         </div>
                     </div>
                     @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 保護者追加モーダル -->
+    <div class="modal fade" id="guardian-create" tabindex="-1" role="dialog" aria-labelledby="#createGuardian"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGuardian">保護者を追加する</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-3">
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="grade_name" class="form-label me-2 my-0 p-0">クラス：</label>
+                            <p class="text-secondary kid-grade my-0"></p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="kid_name" class="form-label me-2 my-0">園児名：</label>
+                            <p class="text-secondary kid-name my-0"></p>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-responsive table-bordered" id="guardian-table">
+                        <thead class="thead-default">
+                            <tr>
+                                <th class="col-3 text-center">続柄</th>
+                                <th class="col-9 text-center">名前</th>
+                            </tr>
+                        </thead>
+                        <tbody class="guardians">
+                            <tr>
+                                <td scope="row" class="col-3"><input type="text" name="relation"
+                                        class="col-12 bg-transparent text-center"></td>
+                                <td class="col-9"><input type="text" name="name" class="col-12 bg-transparent text-center">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="guardian-store">追加</button>
                 </div>
             </div>
         </div>
@@ -171,49 +214,65 @@
             </div>
         </div>
     </div>
-    <!-- 保護者追加モーダル -->
-    <div class="modal fade" id="guardian-create" tabindex="-1" role="dialog" aria-labelledby="#createGuardian" aria-hidden="true">
+    <!-- 習い事追加モーダル -->
+    <div class="modal fade" id="lesson-create" tabindex="-1" role="dialog" aria-labelledby="#createLesson" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createGuardian">保護者を追加する</h5>
+                    <h5 class="modal-title" id="createLesson">習い事を追加する</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row px-3">
                         <div class="col-md-6 d-flex align-items-center mb-3 p-0">
                             <label for="grade_name" class="form-label me-2 my-0 p-0">クラス：</label>
-                            <p class="text-secondary record-grade my-0"></p>
+                            <p class="text-secondary kid-grade my-0"></p>
                         </div>
                         <div class="col-md-6 d-flex align-items-center mb-3 p-0">
                             <label for="kid_name" class="form-label me-2 my-0">園児名：</label>
-                            <p class="text-secondary record-kid my-0"></p>
+                            <p class="text-secondary kid-name my-0"></p>
                         </div>
                     </div>
-                    <table class="table table-hover table-responsive table-bordered" id="guardian-table">
-                        <thead class="thead-default">
-                            <tr>
-                                <th class="col-3 text-center">続柄</th>
-                                <th class="col-9 text-center">名前</th>
-                            </tr>
-                        </thead>
-                        <tbody class="guardians">
-                            <tr>
-                                <td scope="row" class="col-3"><input type="text" name="relation" class="col-12 bg-transparent text-center"></td>
-                                <td class="col-9"><input type="text" name="name" class="col-12 bg-transparent text-center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row px-3 align-items-center mb-3 lesson_name">
+                        <label for="lesson_name" class="col-form-label col-md-4 p-0">習い事：</label>
+                        <div class="col-md-8 px-0">
+                            <input class="form-control p-2" type="text" name="lesson_name" value="">
+                        </div>
+                    </div>
+                    <div class="row px-3 align-items-center mb-3 lesson_schedule">
+                        <label for="lesson_name" class="col-form-label col-md-4 p-0">曜日：</label>
+                        <div class="col-md-8 px-0">
+                            <select class="form-control p-2" type="text" name="lesson_schedule">
+                                <option value="1">月</option>
+                                <option value="2">火</option>
+                                <option value="3">水</option>
+                                <option value="4">木</option>
+                                <option value="5">金</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row align-items-center px-3 mb-3 pu_guardian">
+                        <label for="pu_guardian_id" class="form-label col-md-4 p-0 m-0">お迎えに来る人：</label>
+                        <select class="form-select-lg p-2 col-md-8" name="pu_guardian_id">
+                        </select>
+                    </div>
+                    <div class="row align-items-center px-3 mb-3 pu_plan">
+                        <label for="pu_plan_time" class="form-label col-md-4 p-0">お迎えの予定：</label>
+                        <div class="d-flex justify-content-between align-items-center col-md-8 px-0">
+                            <input class="form-control" id="pu_plan_hour" type="number" name="pu_plan_hour" value="">
+                            <p class="text-secondary mx-3 my-0">:</p>
+                            <input class="form-control" type="number" name="pu_plan_minute" id="pu_plan_minute" value="">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="button" class="btn btn-primary btn-modal-submit" id="guardian-store">追加</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="lesson-store">追加</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 習い事詳細モーダル -->
     <!-- 習い事編集モーダル -->
     <!-- 習い事削除モーダル -->
 </div>

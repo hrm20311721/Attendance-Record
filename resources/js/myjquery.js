@@ -428,8 +428,8 @@ window.onload = function () {
             doAjax(url, data).then(function (data) {
                 let kid = data.kids;
                 let grade = kid.grade;
-                $('.record-grade').text(grade.name);
-                $('.record-kid').text(kid.name);
+                $('.kid-grade').text(grade.name);
+                $('.kid-name').text(kid.name);
             });
 
             $('.btn-modal-submit').val(kid_id);
@@ -534,6 +534,63 @@ window.onload = function () {
             let url = '/guardians/' + guardian_id;
             let data = { '_method': 'DELETE' };
             let message = '削除できました。';
+            let button = $(this);
+
+            doAjax(url, data, 'POST').then(function (data) {
+                successMessage(message);
+                changeToClose(button);
+            }, function (res) {
+                errorMessage(res, button);
+            });
+        })
+
+        //習い事追加モーダル表示
+        $('#lesson-create').on('show.bs.modal', function (e) {
+            let kid_id = $(e.relatedTarget).data('id');
+            let url = '/lessons/create';
+            let data = { 'kid_id': kid_id };
+
+            doAjax(url, data).then(function (kid) {
+                console.log(kid);
+                let guardians = kid.guardians;
+                let grade = kid.grade;
+                $('.kid-grade').text(grade.name);
+                $('.kid-name').text(kid.name);
+
+                //一旦option削除
+                $('.pu_guardian select').empty();
+
+                $.each(guardians, function (index, guardian) {
+                    $('.pu_guardian select').append($('<option>').text(guardian.name).attr({ 'value': guardian.id }));
+                })
+            });
+            $('.btn-modal-submit').val(kid_id);
+        })
+
+        //習い事追加
+        $('#lesson-store').on('click', function (e) {
+            e.preventDefault();
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            let kid_id = $(this).val();
+            let name = $('input[name="lesson_name"]').val();
+            let schedule = $('.lesson_schedule select').val();
+            let pu_guardian_id = $('.pu_guardian select').val();
+            let pu_hour = $('#pu_plan_hour').val();
+            let pu_minute = $('#pu_plan_minute').val();
+            let data = {
+                'kid_id': kid_id,
+                'name': name,
+                'schedule': schedule,
+                'pu_plan_guardian_id': pu_guardian_id,
+                'pu_hour': pu_hour,
+                'pu_minute': pu_minute
+            };
+            let url = '/lessons';
+            let message = '追加できました。';
             let button = $(this);
 
             doAjax(url, data, 'POST').then(function (data) {

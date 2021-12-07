@@ -31,4 +31,16 @@ class Lesson extends Model
         return $lessons;
     }
 
+    public function storeLesson(Array $data)
+    {
+        $this->kid_id = $data['kid_id'];
+        $this->name = $data['name'];
+        $this->schedule = $data['schedule'];
+        $this->pu_plan_guardian_id = $data['pu_plan_guardian_id'];
+        $this->pu_hour = $data['pu_hour'];
+        $this->pu_minute = $data['pu_minute'];
+        $this->save();
+        return;
+    }
+
 }
