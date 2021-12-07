@@ -43,7 +43,7 @@ window.onload = function () {
         };
 
         //ajax通信
-        function doAjax(url, data, method = "GET") {
+        function doAjax(url, data={}, method = "GET") {
             let d = new $.Deferred;
             $.ajax({
                 type: method,
@@ -220,89 +220,6 @@ window.onload = function () {
             });
         });
 
-        //レコード編集モーダル表示
-        $('#record-edit').on('show.bs.modal', function (e) {
-            let record_id = $(e.relatedTarget).attr('value');
-            let url = 'records/' + record_id + '/edit';
-            let data = { 'record': record_id };
-
-            doAjax(url, data).then(function (data) {
-                const kid = data.kid;
-                const guardians = kid.guardians;
-                const record = data.record;
-
-                //クラス・園児名
-                $('.record-grade').text(kid.grade.name);
-                $('.record-kid').text(kid.name);
-
-                //日付
-                const record_date = new Date(record.created_at);
-                $('.record-date').text(dateToMMDD(record_date));
-
-                setGuardians(guardians, null, record);
-
-                //見やすいように時刻をフォーマット
-                $('.do_time input').val(dateToHi(new Date(record.do_time)));
-                //迎えに来た時間が記録されている場合のみ時間を表示
-                if (record.pu_time) {
-                    $('.pu_time input').val(dateToHi(new Date(record.pu_time)));
-                } else {
-                    $('.pu_time input').val('');
-                };
-
-                //ボタンにrecord_idを渡す
-                $('btn-modal-submit').val(record_id);
-            });
-        });
-
-        //レコード削除モーダル表示
-        $('#record-delete').on('show.bs.modal', function (e) {
-            let record_id = $(e.relatedTarget).attr('value');
-            let url = 'records/' + record_id + '/edit';
-            let data = { 'record': record_id };
-
-            doAjax(url, data).then(function (data) {
-                const kid = data.kid;
-                const guardians = kid.guardians;
-                const record = data.record;
-
-                //クラス・園児名
-                $('.record-grade').text(kid.grade.name);
-                $('.record-kid').text(kid.name);
-
-                //日付
-                const record_date = new Date(record.created_at);
-                $('.record-date').text(dateToMMDD(record_date));
-
-                //レコードから保護者の名前を取得
-                var do_guardian_name = $.grep(guardians, function (key, value) {
-                    return (key.id == record.do_guardian_id);
-                })[0].name;
-                var pu_guardian_name = '';
-                //迎えに来た人が記録されている場合は名前を取得
-                if (record.pu_guardian_id) {
-                    pu_guardian_name = $.grep(guardians, function (key, value) {
-                        return (key.id == record.pu_guardian_id);
-                    })[0].name;
-                };
-
-                $('.do_guardian p').text(do_guardian_name);
-                $('.pu_guardian p').text(pu_guardian_name);
-
-                //見やすいように日付をフォーマット
-                $('.do_time p').text(dateToHi(new Date(record.do_time)));
-                //迎えに来た時間が記録されている場合のみ時間を表示
-                if (record.pu_time) {
-                    $('.pu_time p').text(dateToHi(new Date(record.pu_time)));
-                } else {
-                    $('.pu_time p').text('');
-                };
-
-                //ボタンにrecord_idを渡す
-                $('btn-modal-submit').val(record_id);
-            });
-        });
-
         //登園記録
         $('#attend').on('click', function (e) {
             e.preventDefault();
@@ -359,6 +276,45 @@ window.onload = function () {
 
         })
 
+        //レコード編集モーダル表示
+        $('#record-edit').on('show.bs.modal', function (e) {
+            let record_id = $(e.relatedTarget).attr('value');
+            let url = 'records/' + record_id + '/edit';
+            let data = { 'record': record_id };
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            doAjax(url, data).then(function (data) {
+                const kid = data.kid;
+                const guardians = kid.guardians;
+                const record = data.record;
+
+                //クラス・園児名
+                $('.record-grade').text(kid.grade.name);
+                $('.record-kid').text(kid.name);
+
+                //日付
+                const record_date = new Date(record.created_at);
+                $('.record-date').text(dateToMMDD(record_date));
+
+                setGuardians(guardians, null, record);
+
+                //見やすいように時刻をフォーマット
+                $('.do_time input').val(dateToHi(new Date(record.do_time)));
+                //迎えに来た時間が記録されている場合のみ時間を表示
+                if (record.pu_time) {
+                    $('.pu_time input').val(dateToHi(new Date(record.pu_time)));
+                } else {
+                    $('.pu_time input').val('');
+                };
+
+                //ボタンにrecord_idを渡す
+                $('.btn-modal-submit').val(record_id);
+            });
+        });
+
         //レコード編集
         $('#record-update').on('click', function (e) {
             e.preventDefault();
@@ -386,6 +342,59 @@ window.onload = function () {
             }, function (res) {
                 errorMessage(res, button);
             });
+
+        });
+
+        //レコード削除モーダル表示
+        $('#record-delete').on('show.bs.modal', function (e) {
+            let record_id = $(e.relatedTarget).attr('value');
+            let url = 'records/' + record_id + '/edit';
+            let data = { 'record': record_id };
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            doAjax(url, data).then(function (data) {
+                const kid = data.kid;
+                const guardians = kid.guardians;
+                const record = data.record;
+
+                //クラス・園児名
+                $('.record-grade').text(kid.grade.name);
+                $('.record-kid').text(kid.name);
+
+                //日付
+                const record_date = new Date(record.created_at);
+                $('.record-date').text(dateToMMDD(record_date));
+
+                //レコードから保護者の名前を取得
+                var do_guardian_name = $.grep(guardians, function (key, value) {
+                    return (key.id == record.do_guardian_id);
+                })[0].name;
+                var pu_guardian_name = '';
+                //迎えに来た人が記録されている場合は名前を取得
+                if (record.pu_guardian_id) {
+                    pu_guardian_name = $.grep(guardians, function (key, value) {
+                        return (key.id == record.pu_guardian_id);
+                    })[0].name;
+                };
+
+                $('.do_guardian p').text(do_guardian_name);
+                $('.pu_guardian p').text(pu_guardian_name);
+
+                //見やすいように日付をフォーマット
+                $('.do_time p').text(dateToHi(new Date(record.do_time)));
+                //迎えに来た時間が記録されている場合のみ時間を表示
+                if (record.pu_time) {
+                    $('.pu_time p').text(dateToHi(new Date(record.pu_time)));
+                } else {
+                    $('.pu_time p').text('');
+                };
+
+            });
+            //ボタンにrecord_idを渡す
+            $('.btn-modal-submit').val(record_id);
         });
 
         //レコード削除
@@ -410,20 +419,26 @@ window.onload = function () {
             });
         });
 
+        //保護者追加モーダル表示
+
+        //保護者追加
+
         //保護者編集モーダル表示
         $('#guardian-edit').on('show.bs.modal', function (e) {
-            let kid_id = $(e.relatedTarget).data('id');
-            let url = '/guardians/' + kid_id + '/edit';
-            let data = { 'kid_id': kid_id };
-            let guardianRows = '';
+            let guardian_id = $(e.relatedTarget).data('id');
+            let url = '/guardians/' + guardian_id + '/edit';
+            let guardianRows;
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
 
             $('.guardians').empty();
 
-            doAjax(url, data).then(function (data) {
-                let guardians = data.guardians;
-                $.each(guardians, function (index, guardian) {
-                    guardianRows += '<tr><input type="hidden" value="'+guardian.id+'" name="guardian_id"><td scope="row" class="col-3"><input type="text" value="' + guardian.relation + '" class="col-12 border-0 bg-transparent text-center" name="relation"></td><td class="col-9"><input type="text" value="' + guardian.name + '" class="col-12 border-0 bg-transparent text-center" name="name"></td></tr>'
-                });
+            doAjax(url).then(function (data) {
+                let guardian = data.guardians;
+
+                guardianRows = '<tr><input type="hidden" value="' + guardian.id + '" name="guardian_id"><td scope="row" class="col-3"><input type="text" value="' + guardian.relation + '" class="col-12 border-0 bg-transparent text-center" name="relation"></td><td class="col-9"><input type="text" value="' + guardian.name + '" class="col-12 border-0 bg-transparent text-center" name="name"></td></tr>';
 
                 $('.guardians').append(guardianRows);
             });
@@ -437,23 +452,15 @@ window.onload = function () {
                 $('.alert').remove();
             };
 
-            let guardianRow = $('#guardian-table>.guardians tr');
+            let guardian = $('#guardian-table>.guardians tr');
+            let guardian_id = $(guardian).find('input[name="guardian_id"]').val();
+            let relation = $(guardian).find('input[name="relation"]').val();
+            let name = $(guardian).find('input[name="name"]').val();
             let button = $(this);
-            let req = {'_method':'PUT'};
-            let url = '/guardians/update';
-            let data = {};
+            let url = '/guardians/'+guardian_id;
+            let data = { '_method': 'PUT', 'relation': relation, 'name': name };
 
-
-            $.each(guardianRow, function (index, guardian) {
-                let guardian_id = $(guardian).find('input[name="guardian_id"]').val();
-                let relation = $(guardian).find('input[name="relation"]').val();
-                let name = $(guardian).find('input[name="name"]').val();
-                data[guardian_id] = { 'relation': relation, 'name': name }
-            });
-            req['data'] = data;
-
-            doAjax(url, req, 'POST').then(function (data) {
-                console.log(data);
+            doAjax(url, data, 'POST').then(function (data) {
                 successMessage('更新できました。');
                 changeToClose(button);
             }, function (res) {
@@ -463,8 +470,45 @@ window.onload = function () {
         })
 
         //保護者削除モーダル表示
+        $('#guardian-delete').on('show.bs.modal', function (e) {
+            let guardian_id = $(e.relatedTarget).data('id');
+            let url = '/guardians/' + guardian_id + '/edit';
+            let guardianRows;
+
+            $('.guardians').empty();
+
+            doAjax(url).then(function (data) {
+                let guardian = data.guardians;
+                guardianRows = '<tr><td scope="row" class="col-3 text-center">' + guardian.relation + '</td><td class="col-9 text-center">' + guardian.name + '</td><tr>';
+
+                $('.guardians').append(guardianRows);
+                //ボタンにguardian_idを渡す
+                $('.btn-modal-submit').val(guardian_id);
+            });
+
+        })
 
         //保護者削除
+        $('#guardian-destroy').on('click', function (e) {
+            e.preventDefault();
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            let guardian_id = $(this).val();
+            let url = '/guardians/' + guardian_id;
+            let data = { '_method': 'DELETE' };
+            let message = '削除できました。';
+            let button = $(this);
+
+            doAjax(url, data, 'POST').then(function (data) {
+                successMessage(message);
+                changeToClose(button);
+            }, function (res) {
+                errorMessage(res, button);
+            });
+        })
 
         //習い事編集モーダル表示
 

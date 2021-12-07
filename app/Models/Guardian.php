@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guardian extends Model
 {
-    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'relation',
@@ -33,6 +33,16 @@ class Guardian extends Model
         $guardian->name = $data['name'];
         $guardian->save();
         return;
+    }
+
+    public function getEditGuardian(Int $guardian_id)
+    {
+        return $this->where('id',$guardian_id)->first();
+    }
+
+    public function destroyGuardian(Int $guardian_id)
+    {
+        return $this->where('id',$guardian_id)->delete();
     }
 
 }

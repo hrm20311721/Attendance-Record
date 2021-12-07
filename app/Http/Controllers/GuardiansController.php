@@ -56,10 +56,9 @@ class GuardiansController extends Controller
      * @param  \App\Models\Guardian  $guardian
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Guardian $guardian)
+    public function edit(Guardian $guardian)
     {
-        $kid_id = $request->kid_id;
-        $guardians = $guardian->getGuardians($kid_id);
+        $guardians = $guardian->getEditGuardian($guardian->id);
 
         return ['guardians'=> $guardians];
     }
@@ -73,17 +72,15 @@ class GuardiansController extends Controller
      */
     public function update(Request $request,Guardian $guardian)
     {
-        $data = $request->data;
+        $data = $request->only(['relation','name']);
 
-        foreach($data as $guardian_id=>$value){
-            $validator = Validator::make($value, [
-                'relation'  => ['required', 'string', 'max:10'],
-                'name'      => ['required', 'string', 'max:30']
-            ]);
+        $validator = Validator::make($data, [
+            'relation'  => ['required', 'string', 'max:10'],
+            'name'      => ['required', 'string', 'max:30']
+        ]);
 
-            $validator->validate();
-            $guardian->guardianUpdate($guardian_id, $value);
-        };
+        $validator->validate();
+        $guardian->guardianUpdate($guardian->id, $data);
 
         return response()->json();
     }
@@ -96,7 +93,8 @@ class GuardiansController extends Controller
      */
     public function destroy(Guardian $guardian)
     {
-        //
+        $guardian->destroyGuardian($guardian->id);
+        return response()->json();
     }
 
 }

@@ -28,38 +28,84 @@
                 <div class="accordion" id="accordion">
                     @foreach ($kids as $kid )
                     <div class="mb-0 accordion-item">
+                        <!-- accordion header -->
                         <h5 class="accordion-header mb-0" id="heading{{$kid->id}}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#detail{{$kid->id}} " aria-expanded="false" aria-controls="detail{{$kid->id}}">
                                 {{ $kid->name }}
                             </button>
                         </h5>
+                        <!-- accordion contents -->
                         <div id="detail{{$kid->id}}" class="mb-0 accordion-collapse collapse" aria-labelledby="heading{{$kid->id}}" data-bs-parent="#accordion">
-                            <div class="accordion-body d-flex justify-content-around">
-                                <div class="col-5">
-                                    <div class="d-flex justify-content-around align-items-center border-bottom">
+                            <div class="accordion-body d-flex justify-content-between justify-content-lg-around p-2">
+                                <!-- 保護者 -->
+                                <div class="col-6 m-0">
+                                    <div class="text-center border-bottom d-flex justify-content-around align-items-center">
                                         <dt for="guardian" class="form-label p-0 m-0">保護者</dt>
-                                        <button class="btn dropdown-toggle" type="button" id="guardianEditDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="guardianEditDropdown">
-                                            <li><a href="#guardian-edit" class="dropdown-item" data-bs-toggle="modal" data-id="{{$kid->id}}">編集</a></li>
-                                            <li><a href="{{ route('guardians.create',['kid' => $kid->id])}}" class="dropdown-item">追加</a></li>
-                                        </ul>
+                                        <!--　追加モーダル表示ボタン -->
+                                        <a href="#guardian-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0"
+                                            type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
+                                        </a>
                                     </div>
                                     @foreach ($kid->guardians as $guardian)
-                                    <dd>{{$guardian->name}}</dd>
+                                    <div class="d-flex align-items-center justify-content-between justify-content-lg-around">
+                                        <div class="text-left">
+                                            <dd class="m-0 fs-6">{{$guardian->name}}</dd>
+                                        </div>
+                                        <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
+                                            <!--　メニューボタン -->
+                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navButtonsG{{$guardian->id}}"
+                                                aria-controls="navButtonsG" aria-expanded="false" aria-label="Toggle navigation">
+                                                <span class="navbar-toggler-icon"></span>
+                                            </button>
+                                            <div class="collapse navbar-collapse text-center" id="navButtonsG{{$guardian->id}}">
+                                                <!--　編集モーダル表示ボタン -->
+                                                <a href="#guardian-edit" class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
+                                                    type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
+                                                </a>
+                                                <!--　削除モーダル表示ボタン -->
+                                                <a href="#guardian-delete" class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0"
+                                                    type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
+                                                </a>
+                                            </div>
+                                        </nav>
+                                    </div>
                                     @endforeach
                                 </div>
-                                <div class="col-5">
-                                    <div class="d-flex justify-content-around align-items-center border-bottom">
-                                        <dt for="guardian" class="form-label p-0 m-0">習い事</dt>
-                                        <button class="btn dropdown-toggle" type="button" id="guardianEditDropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
+                                <!-- 習い事 -->
+                                <div class="col-6 m-0">
+                                    <div class="text-center border-bottom d-flex justify-content-around align-items-center">
+                                        <dt for="lesson" class="form-label p-0 m-0">習い事</dt>
+                                        <!--　追加モーダル表示ボタン -->
+                                        <a href="#lesson-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0"
+                                            type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
+                                        </a>
                                     </div>
                                     @foreach ($kid->lessons as $lesson)
-                                    <dd>{{$lesson->name}}</dd>
+                                    <div class="d-flex align-items-center justify-content-between justify-content-lg-around">
+                                        <div class="text-left">
+                                            <dd class="m-0 fs-6">{{$lesson->name}}</dd>
+                                        </div>
+                                        <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
+                                            <!--　メニューボタン -->
+                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#navButtonsL{{$lesson->id}}" aria-controls="navButtons" aria-expanded="false"
+                                                aria-label="Toggle navigation">
+                                                <span class="navbar-toggler-icon"></span>
+                                            </button>
+                                            <div class="collapse navbar-collapse text-center" id="navButtonsL{{$lesson->id}}">
+                                                <!--　編集モーダル表示ボタン -->
+                                                <a href="#lesson-edit"
+                                                    class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
+                                                    type="button" data-bs-toggle="modal" data-id="{{$lesson->id}}">
+                                                </a>
+                                                <!--　削除モーダル表示ボタン -->
+                                                <a href="#lesson-delete"
+                                                    class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0"
+                                                    type="button" data-bs-toggle="modal" data-id="{{$lesson->id}}">
+                                                </a>
+                                            </div>
+                                        </nav>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -98,7 +144,34 @@
             </div>
         </div>
     </div>
-    <!-- 保護者編集モーダル -->
+    <!-- 保護者削除モーダル -->
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="guardian-delete" role="dialog"
+        aria-labelledby="guardian-show-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">保護者を削除しますか?</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-responsive table-bordered" id="guardian-table">
+                        <thead class="thead-default">
+                            <tr>
+                                <th class="col-3 text-center">続柄</th>
+                                <th class="col-9 text-center">名前</th>
+                            </tr>
+                        </thead>
+                        <tbody class="guardians">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary guardian-destroy-btn btn-modal-submit" value="" id="guardian-destroy">削除</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- 保護者追加モーダル -->
     <!-- 習い事詳細モーダル -->
     <!-- 習い事編集モーダル -->
