@@ -46,8 +46,8 @@
                                         </a>
                                     </div>
                                     @foreach ($kid->guardians as $guardian)
-                                    <div class="d-flex align-items-center justify-content-between justify-content-md-around">
-                                        <div class="text-left">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="text-left px-md-3">
                                             <dd class="m-0 fs-6">{{$guardian->name}}</dd>
                                         </div>
                                         <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
@@ -56,7 +56,7 @@
                                                 aria-controls="navButtonsG" aria-expanded="false" aria-label="Toggle navigation">
                                                 <span class="navbar-toggler-icon"></span>
                                             </button>
-                                            <div class="collapse navbar-collapse text-center" id="navButtonsG{{$guardian->id}}">
+                                            <div class="collapse navbar-collapse text-center px-md-3" id="navButtonsG{{$guardian->id}}">
                                                 <!--　編集モーダル表示ボタン -->
                                                 <a href="#guardian-edit" class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
                                                     type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
@@ -79,8 +79,8 @@
                                         </a>
                                     </div>
                                     @foreach ($kid->lessons as $lesson)
-                                    <div class="d-flex align-items-center justify-content-between justify-content-md-around">
-                                        <div class="text-left">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="text-left px-md-3">
                                             <dd class="m-0 fs-6">{{$lesson->name}}</dd>
                                         </div>
                                         <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
@@ -90,7 +90,7 @@
                                                 aria-label="Toggle navigation">
                                                 <span class="navbar-toggler-icon"></span>
                                             </button>
-                                            <div class="collapse navbar-collapse text-center" id="navButtonsL{{$lesson->id}}">
+                                            <div class="collapse navbar-collapse text-center px-md-3" id="navButtonsL{{$lesson->id}}">
                                                 <!--　編集モーダル表示ボタン -->
                                                 <a href="#lesson-edit"
                                                     class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
