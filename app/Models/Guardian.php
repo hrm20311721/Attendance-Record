@@ -45,4 +45,13 @@ class Guardian extends Model
         return $this->where('id',$guardian_id)->delete();
     }
 
+    public function storeGuardian(Array $data)
+    {
+        $this->kid_id = $data['kid_id'];
+        $this->relation = $data['relation'];
+        $this->name = $data['name'];
+        $this->save();
+        return;
+    }
+
 }

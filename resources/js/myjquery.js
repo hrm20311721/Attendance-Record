@@ -420,8 +420,42 @@ window.onload = function () {
         });
 
         //保護者追加モーダル表示
+        $('#guardian-create').on('show.bs.modal', function (e) {
+            let kid_id = $(e.relatedTarget).data('id');
+            let url = '/guardians/create';
+            let data = { 'kid_id': kid_id };
+
+            doAjax(url, data).then(function (data) {
+                let kid = data.kids;
+                let grade = kid.grade;
+                $('.record-grade').text(grade.name);
+                $('.record-kid').text(kid.name);
+            });
+
+            $('.btn-modal-submit').val(kid_id);
+        })
 
         //保護者追加
+        $('#guardian-store').on('click', function (e) {
+            e.preventDefault();
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+            let kid_id = $(this).val();
+            let relation = $('input[name="relation"]').val();
+            let name = $('input[name="name"]').val();
+            let url = '/guardians';
+            let data = { 'kid_id': kid_id, 'relation': relation, 'name': name };
+            let message = '追加できました。';
+            let button = $(this);
+            doAjax(url, data, 'POST').then(function (data) {
+                successMessage(message);
+                changeToClose(button);
+            }, function (res) {
+                errorMessage(res, button);
+            });
+        })
 
         //保護者編集モーダル表示
         $('#guardian-edit').on('show.bs.modal', function (e) {

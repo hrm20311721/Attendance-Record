@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guardian;
+use App\Models\Kid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,9 +24,11 @@ class GuardiansController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request,Kid $kid)
     {
-        //
+        $kid_id = $request->kid_id;
+        $kids = $kid->getAllKids()->where('id',$kid_id)->first();
+        return ['kids'=>$kids];
     }
 
     /**
@@ -34,9 +37,17 @@ class GuardiansController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Guardian $guardian)
     {
-        //
+        $data = $request->only(['kid_id','relation','name']);
+        $validator = Validator::make($data,[
+            'relation'  => ['required', 'string', 'max:10'],
+            'name'      => ['required', 'string', 'max:30']
+        ]);
+
+        $validator->validate();
+        $guardian->storeGuardian($data);
+        return response()->json();
     }
 
     /**

@@ -42,8 +42,7 @@
                                     <div class="text-center border-bottom d-flex justify-content-around align-items-center">
                                         <dt for="guardian" class="form-label p-0 m-0">保護者</dt>
                                         <!--　追加モーダル表示ボタン -->
-                                        <a href="#guardian-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0"
-                                            type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
+                                        <a href="#guardian-create" class="btn bi bi-plus-square btn-outline-secondary border-0 bg-transparent p-0" data-bs-target="#guardian-create" type="button" data-bs-toggle="modal" data-id="{{$kid->id}}">
                                         </a>
                                     </div>
                                     @foreach ($kid->guardians as $guardian)
@@ -139,7 +138,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="button" class="btn btn-primary guardian-update-btn btn-modal-submit" id="guardian-update">更新</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="guardian-update">更新</button>
                 </div>
             </div>
         </div>
@@ -167,12 +166,53 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                    <button type="button" class="btn btn-primary guardian-destroy-btn btn-modal-submit" value="" id="guardian-destroy">削除</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" value="" id="guardian-destroy">削除</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- 保護者追加モーダル -->
+    <div class="modal fade" id="guardian-create" tabindex="-1" role="dialog" aria-labelledby="#createGuardian" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGuardian">保護者を追加する</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-3">
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="grade_name" class="form-label me-2 my-0 p-0">クラス：</label>
+                            <p class="text-secondary record-grade my-0"></p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="kid_name" class="form-label me-2 my-0">園児名：</label>
+                            <p class="text-secondary record-kid my-0"></p>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-responsive table-bordered" id="guardian-table">
+                        <thead class="thead-default">
+                            <tr>
+                                <th class="col-3 text-center">続柄</th>
+                                <th class="col-9 text-center">名前</th>
+                            </tr>
+                        </thead>
+                        <tbody class="guardians">
+                            <tr>
+                                <td scope="row" class="col-3"><input type="text" name="relation" class="col-12 bg-transparent text-center"></td>
+                                <td class="col-9"><input type="text" name="name" class="col-12 bg-transparent text-center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="guardian-store">追加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 習い事詳細モーダル -->
     <!-- 習い事編集モーダル -->
     <!-- 習い事削除モーダル -->
