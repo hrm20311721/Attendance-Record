@@ -52,18 +52,15 @@
                                         </div>
                                         <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
                                             <!--　メニューボタン -->
-                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navButtonsG{{$guardian->id}}"
-                                                aria-controls="navButtonsG" aria-expanded="false" aria-label="Toggle navigation">
+                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navButtonsG{{$guardian->id}}" aria-controls="navButtonsG" aria-expanded="false" aria-label="Toggle navigation">
                                                 <span class="navbar-toggler-icon"></span>
                                             </button>
                                             <div class="collapse navbar-collapse text-center px-md-3" id="navButtonsG{{$guardian->id}}">
                                                 <!--　編集モーダル表示ボタン -->
-                                                <a href="#guardian-edit" class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
-                                                    type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
+                                                <a href="#guardian-edit" class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0" type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
                                                 </a>
                                                 <!--　削除モーダル表示ボタン -->
-                                                <a href="#guardian-delete" class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0"
-                                                    type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
+                                                <a href="#guardian-delete" class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0" type="button" data-bs-toggle="modal" data-id="{{$guardian->id}}">
                                                 </a>
                                             </div>
                                         </nav>
@@ -85,21 +82,14 @@
                                         </div>
                                         <nav class="nav-bar navbar-expand-lg navbar-light justify-content-center text-center">
                                             <!--　メニューボタン -->
-                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#navButtonsL{{$lesson->id}}" aria-controls="navButtons" aria-expanded="false"
-                                                aria-label="Toggle navigation">
+                                            <button class="navbar-toggler py-0 border-0 fs-6 m-0" type="button" data-bs-toggle="collapse" data-bs-target="#navButtonsL{{$lesson->id}}" aria-controls="navButtons" aria-expanded="false" aria-label="Toggle navigation">
                                                 <span class="navbar-toggler-icon"></span>
                                             </button>
                                             <div class="collapse navbar-collapse text-center px-md-3" id="navButtonsL{{$lesson->id}}">
                                                 <!--　編集モーダル表示ボタン -->
-                                                <a href="#lesson-edit"
-                                                    class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0"
-                                                    type="button" data-bs-toggle="modal" data-id="{{$lesson->id}}">
-                                                </a>
+                                                <a href="#lesson-edit" class="nav-item btn bi bi-pencil-square btn-outline-secondary border-0 bg-transparent mx-2 p-0" type="button" data-bs-toggle="modal" data-id="{{$lesson->id}}" data-bs-target="#lesson-edit"></a>
                                                 <!--　削除モーダル表示ボタン -->
-                                                <a href="#lesson-delete"
-                                                    class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0"
-                                                    type="button" data-bs-toggle="modal" data-id="{{$lesson->id}}">
+                                                <a href="#lesson-delete" class="nav-item btn bi bi-trash btn-outline-secondary border-0 bg-transparent mx-2 p-0" type="button" data-bs-target="#lesson-delete" data-bs-toggle="modal" data-id="{{$lesson->id}}">
                                                 </a>
                                             </div>
                                         </nav>
@@ -115,7 +105,7 @@
         </div>
     </div>
     <!-- 保護者追加モーダル -->
-    <div class="modal fade" id="guardian-create" tabindex="-1" role="dialog" aria-labelledby="#createGuardian"
+    <div class="modal fade" data-bs-backdrop="static" id="guardian-create" tabindex="-1" role="dialog" aria-labelledby="#createGuardian"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -159,7 +149,7 @@
         </div>
     </div>
     <!-- 保護者編集モーダル -->
-    <div class="modal fade"  data-bs-backdrop="static" tabindex="-1" id="guardian-edit" role="dialog" aria-labelledby="guardian-show-modal" aria-hidden="true">
+    <div class="modal fade"  data-bs-backdrop="static" tabindex="-1" id="guardian-edit" role="dialog" aria-labelledby="#editGuardian" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -187,8 +177,7 @@
         </div>
     </div>
     <!-- 保護者削除モーダル -->
-    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="guardian-delete" role="dialog"
-        aria-labelledby="guardian-show-modal" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" tabindex="-1" id="guardian-delete" role="dialog" aria-labelledby="#deleteGuardian" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -215,7 +204,7 @@
         </div>
     </div>
     <!-- 習い事追加モーダル -->
-    <div class="modal fade" id="lesson-create" tabindex="-1" role="dialog" aria-labelledby="#createLesson" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" id="lesson-create" tabindex="-1" role="dialog" aria-labelledby="#createLesson" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -259,9 +248,9 @@
                     <div class="row align-items-center px-3 mb-3 pu_plan">
                         <label for="pu_plan_time" class="form-label col-md-4 p-0">お迎えの予定：</label>
                         <div class="d-flex justify-content-between align-items-center col-md-8 px-0">
-                            <input class="form-control" id="pu_plan_hour" type="number" name="pu_plan_hour" value="">
+                            <input class="form-control hour" type="number" name="pu_plan_hour" value="">
                             <p class="text-secondary mx-3 my-0">:</p>
-                            <input class="form-control" type="number" name="pu_plan_minute" id="pu_plan_minute" value="">
+                            <input class="form-control minute" type="number" name="pu_plan_minute" value="">
                         </div>
                     </div>
                 </div>
@@ -272,9 +261,106 @@
             </div>
         </div>
     </div>
-
     <!-- 習い事編集モーダル -->
+    <div class="modal fade" id="lesson-edit" tabindex="-1" role="dialog" aria-labelledby="editLesson" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">習い事を修正する</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-3">
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="grade_name" class="form-label me-2 my-0 p-0">クラス：</label>
+                            <p class="text-secondary kid-grade my-0"></p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="kid_name" class="form-label me-2 my-0">園児名：</label>
+                            <p class="text-secondary kid-name my-0"></p>
+                        </div>
+                    </div>
+                    <div class="row px-3 align-items-center mb-3 lesson_name">
+                        <label for="lesson_name" class="col-form-label col-md-4 p-0">習い事：</label>
+                        <div class="col-md-8 px-0">
+                            <input class="form-control p-2" type="text" name="lesson_name" value="">
+                        </div>
+                    </div>
+                    <div class="row px-3 align-items-center mb-3 lesson_schedule">
+                        <label for="lesson_name" class="col-form-label col-md-4 p-0">曜日：</label>
+                        <div class="col-md-8 px-0">
+                            <select class="form-control p-2" type="text" name="lesson_schedule">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row align-items-center px-3 mb-3 pu_guardian">
+                        <label for="pu_guardian_id" class="form-label col-md-4 p-0 m-0">お迎えに来る人：</label>
+                        <select class="form-select-lg p-2 col-md-8" name="pu_guardian_id">
+                        </select>
+                    </div>
+                    <div class="row align-items-center px-3 mb-3 pu_plan">
+                        <label for="pu_plan_time" class="form-label col-md-4 p-0">お迎えの予定：</label>
+                        <div class="d-flex justify-content-between align-items-center col-md-8 px-0">
+                            <input class="form-control hour" type="number" name="pu_plan_hour" value="">
+                            <p class="text-secondary mx-3 my-0">:</p>
+                            <input class="form-control minute" type="text" name="pu_plan_minute" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="lesson-update">更新</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- 習い事削除モーダル -->
+    <div class="modal fade" id="lesson-delete" tabindex="-1" role="dialog" aria-labelledby="deleteLesson" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">習い事を削除しますか？</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row px-3">
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="grade_name" class="form-label me-2 my-0 p-0">クラス：</label>
+                            <p class="text-secondary kid-grade my-0"></p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="kid_name" class="form-label me-2 my-0">園児名：</label>
+                            <p class="text-secondary kid-name my-0"></p>
+                        </div>
+                    </div>
+                    <div class="row px-3">
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="lesson_name" class="form-label me-2 my-0">習い事：</label>
+                            <p class="text-secondary lesson-name my-0"></p>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center mb-3 p-0">
+                            <label for="lesson_name" class="form-label me-2 my-0">曜日：</label>
+                            <p class="text-secondary lesson-schedule my-0"></p>
+                        </div>
+                    </div>
+                    <div class="row px-3">
+                        <div class="col-md-6 mb-3 p-0 d-flex d-md-block pu_guardian">
+                            <label for="pu_guardian_id" class="form-label me-2 my-0">お迎えに来る人：</label>
+                            <p class="text-secondary guardian-name my-0"></p>
+                        </div>
+                        <div class="col-md-6 mb-3 p-0 d-flex d-md-block pu_plan">
+                            <label for="pu_plan_time" class="form-label me-2 my-0">お迎えの予定：</label>
+                            <p class="text-secondary pu-time my-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary btn-modal-submit" id="lesson-destroy">削除</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

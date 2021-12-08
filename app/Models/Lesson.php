@@ -43,4 +43,26 @@ class Lesson extends Model
         return;
     }
 
+    public function getEditLesson(Int $lesson_id)
+    {
+        return $this->where('id',$lesson_id)->first();
+    }
+
+    public function updateLesson(Int $lesson_id, Array $data)
+    {
+        $lesson = Lesson::find($lesson_id);
+        $lesson->name = $data['name'];
+        $lesson->schedule = $data['schedule'];
+        $lesson->pu_plan_guardian_id = $data['pu_plan_guardian_id'];
+        $lesson->pu_hour = $data['pu_hour'];
+        $lesson->pu_minute = $data['pu_minute'];
+        $lesson->save();
+        return;
+    }
+
+    public function destroyLesson(Int $lesson_id)
+    {
+        return $this->where('id',$lesson_id)->delete();
+    }
+
 }

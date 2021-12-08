@@ -41,13 +41,12 @@ class LessonsController extends Controller
     public function store(Request $request,Lesson $lesson)
     {
         $data = $request->only(['kid_id','name','schedule','pu_plan_guardian_id','pu_hour','pu_minute']);
-        $kid_id = $request->kid_id;
         $validator = Validator::make($data,[
             'name' => ['required','string','max:20'],
             'schedule' => ['required','integer','between:1,6'],
             'pu_plan_guardian_id' => ['required','integer'],
             'pu_hour' => ['required','integer','between:9,19'],
-            'pu_minute' => ['required','integer','between:0,59']
+            'pu_minute' => ['required', 'regex:/^[0-9]{2}$/i','between:0,59']
         ]);
 
         $validator->validate();
@@ -72,9 +71,11 @@ class LessonsController extends Controller
      * @param  \App\Models\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lesson $lesson)
+    public function edit(Lesson $lesson,Kid $kid)
     {
-        //
+        $lesson = $lesson->getEditLesson($lesson->id);
+        $kid = $kid->getAllKids()->where('id',$lesson->kid_id)->first();
+        return ['kid'=>$kid,'lesson'=>$lesson];
     }
 
     /**
@@ -86,7 +87,18 @@ class LessonsController extends Controller
      */
     public function update(Request $request, Lesson $lesson)
     {
-        //
+        $data = $request->only(['name','schedule','pu_plan_guardian_id','pu_hour','pu_minute']);
+        $validator = Validator::make($data, [
+            'name' => ['required', 'string', 'max:20'],
+            'schedule' => ['required', 'integer', 'between:1,6'],
+            'pu_plan_guardian_id' => ['required', 'integer'],
+            'pu_hour' => ['required', 'integer', 'between:9,19'],
+            'pu_minute' => ['required','regex:/^[0-9]{2}$/i', 'max:59']
+        ]);
+
+        $validator->validate();
+        $lesson->updateLesson($lesson->id,$data);
+        return response()->json();
     }
 
     /**
@@ -97,6 +109,7 @@ class LessonsController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        //
+        $lesson->destroyLesson($lesson->id);
+        return response()->json();
     }
 }

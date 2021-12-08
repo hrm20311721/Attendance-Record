@@ -1,4 +1,5 @@
 const { Callbacks } = require("jquery");
+const day = { 0: '日', 1: '月', 2: '火', 3: '水', 4: '木', 5: '金', 6: '土' };
 
 
 window.onload = function () {
@@ -213,7 +214,7 @@ window.onload = function () {
                 };
 
                 //ボタンにkid_idを渡す
-                $('.btn-modal-submit').val(kid_id);
+                $('#attend,#leave').val(kid_id);
 
             }, function (message) {
                 alert(message);
@@ -311,7 +312,7 @@ window.onload = function () {
                 };
 
                 //ボタンにrecord_idを渡す
-                $('.btn-modal-submit').val(record_id);
+                $('#record-update').val(record_id);
             });
         });
 
@@ -394,7 +395,7 @@ window.onload = function () {
 
             });
             //ボタンにrecord_idを渡す
-            $('.btn-modal-submit').val(record_id);
+            $('#record-destroy').val(record_id);
         });
 
         //レコード削除
@@ -432,7 +433,7 @@ window.onload = function () {
                 $('.kid-name').text(kid.name);
             });
 
-            $('.btn-modal-submit').val(kid_id);
+            $('#guardian-store').val(kid_id);
         })
 
         //保護者追加
@@ -517,7 +518,7 @@ window.onload = function () {
 
                 $('.guardians').append(guardianRows);
                 //ボタンにguardian_idを渡す
-                $('.btn-modal-submit').val(guardian_id);
+                $('#guardian-destroy').val(guardian_id);
             });
 
         })
@@ -550,6 +551,10 @@ window.onload = function () {
             let url = '/lessons/create';
             let data = { 'kid_id': kid_id };
 
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
             doAjax(url, data).then(function (kid) {
                 console.log(kid);
                 let guardians = kid.guardians;
@@ -564,7 +569,7 @@ window.onload = function () {
                     $('.pu_guardian select').append($('<option>').text(guardian.name).attr({ 'value': guardian.id }));
                 })
             });
-            $('.btn-modal-submit').val(kid_id);
+            $('#lesson-store').val(kid_id);
         })
 
         //習い事追加
@@ -579,8 +584,8 @@ window.onload = function () {
             let name = $('input[name="lesson_name"]').val();
             let schedule = $('.lesson_schedule select').val();
             let pu_guardian_id = $('.pu_guardian select').val();
-            let pu_hour = $('#pu_plan_hour').val();
-            let pu_minute = $('#pu_plan_minute').val();
+            let pu_hour = $('.pu_plan .hour').val();
+            let pu_minute = $('.pu_plan .minute').val();
             let data = {
                 'kid_id': kid_id,
                 'name': name,
@@ -602,12 +607,136 @@ window.onload = function () {
         })
 
         //習い事編集モーダル表示
+        $('#lesson-edit').on('show.bs.modal', function (e) {
+            let lesson_id = $(e.relatedTarget).data('id');
+            let url = '/lessons/' + lesson_id + '/edit';
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            doAjax(url).then(function (data) {
+                let kid = data.kid;
+                let grade = kid.grade;
+                let guardians = kid.guardians;
+                let lesson = data.lesson;
+                let minute = ("0" + lesson.pu_minute).slice(-2);
+
+                //登録されている内容を呼び出し
+                $('.kid-grade').text(grade.name);
+                $('.kid-name').text(kid.name);
+                $('#lesson-edit .lesson_name input').val(lesson.name);
+                $('#lesson-edit .pu_plan .hour').val(lesson.pu_hour);
+                $('#lesson-edit .pu_plan .minute').val(minute);
+
+                //一旦option消す
+                $('#lesson-edit option').empty();
+
+                //保護者をoptionに
+                $.each(guardians, function (index, guardian) {
+
+                    if (guardian.id == lesson.pu_plan_guardian_id) {
+                        $('.pu_guardian select').append($('<option>').text(guardian.name).attr({ 'value': guardian.id, 'selected': 'selected' }));
+                    } else {
+                        $('.pu_guardian select').append($('<option>').text(guardian.name).attr({ 'value': guardian.id }));
+                    };
+                });
+
+                //曜日をoptionに
+                $.each(day, function (index, value) {
+                    if (lesson.schedule == index) {
+                        $('.lesson_schedule select').append($('<option>').text(value).val(index).attr('selected', 'selected'));
+                    } else {
+                        $('.lesson_schedule select').append($('<option>').text(value).val(index));
+                    };
+                });
+            });
+
+            $('#lesson-update').val(lesson_id);
+        })
 
         //習い事更新
+        $('#lesson-update').on('click', function (e) {
+            e.preventDefault();
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            let lesson_id = $(this).val();
+            let name = $('#lesson-edit .lesson_name input').val();
+            let schedule = $('#lesson-edit .lesson_schedule select').val();
+            let pu_plan_guardian_id = $('#lesson-edit .pu_guardian select').val();
+            let pu_hour = $('#lesson-edit .pu_plan .hour').val();
+            let pu_minute = $('#lesson-edit .pu_plan .minute').val();
+            let url = '/lessons/' + lesson_id;
+            let data = {
+                '_method': 'PUT',
+                'name': name,
+                'schedule': schedule,
+                'pu_plan_guardian_id': pu_plan_guardian_id,
+                'pu_hour': pu_hour,
+                'pu_minute': pu_minute
+            };
+            let message = '更新できました。';
+            let button = $(this);
+
+            doAjax(url, data, 'POST').then(function (data) {
+                successMessage(message);
+            }, function (res) {
+                errorMessage(res, button);
+            })
+
+        })
 
         //習い事削除モーダル表示
+        $('#lesson-delete').on('show.bs.modal', function (e) {
+            let lesson_id = $(e.relatedTarget).data('id');
+            let url = '/lessons/' + lesson_id + '/edit';
+
+            if ($('.alert').length) {
+                $('.alert').remove();
+            };
+
+            doAjax(url).then(function (data) {
+                let kid = data.kid;
+                let grade = kid.grade;
+                let guardians = kid.guardians;
+                let lesson = data.lesson;
+                let guardian = $.grep(guardians, guardian => guardian.id == lesson.pu_plan_guardian_id)[0];
+                let minute = ("0" + lesson.pu_minute).slice(-2);
+
+                console.log(guardian);
+
+                $('#lesson-delete .kid-grade').text(grade.name);
+                $('#lesson-delete .kid-name').text(kid.name);
+                $('#lesson-delete .lesson-name').text(lesson.name);
+                $('#lesson-delete .lesson-schedule').text(day[lesson.schedule] + '曜日');
+                $('#lesson-delete .guardian-name').text(guardian.name);
+                $('#lesson-delete .pu-time').text(lesson.pu_hour+':'+minute);
+            });
+
+            $('#lesson-destroy').val(lesson_id);
+        })
 
         //習い事削除
+        $('#lesson-destroy').on('click', function (e) {
+            e.preventDefault();
+
+            let button = $(this);
+            let lesson_id = button.val();
+            let url = '/lessons/' + lesson_id;
+            let data = { '_method': 'DELETE' };
+            let message = '削除できました。'
+
+            doAjax(url, data, 'POST').then(function (data) {
+                successMessage(message);
+                changeToClose(button);
+            }, function (res) {
+                errorMessage(res, button);
+            })
+
+        })
 
     });
 };
