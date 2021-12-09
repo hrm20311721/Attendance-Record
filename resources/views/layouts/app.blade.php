@@ -65,7 +65,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @can('user-higher')
+                                    @can('admin-higher')
+                                    <a class="dropdown-item" href="{{ route('kids.index',['grade' => 0]) }}">園児一覧</a>
+                                    <a href="{{route('records.index')}}" class="dropdown-item">レコード一覧</a>
+                                    <a href="{{url('procedure')}}" class="dropdown-item">各種手続き</a>
+                                    @elsecan('user-higher')
                                     <a class="dropdown-item" href="{{ route('kids.index',['grade' => 0]) }}">園児一覧</a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"

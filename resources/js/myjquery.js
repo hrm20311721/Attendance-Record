@@ -1,7 +1,6 @@
 const { Callbacks } = require("jquery");
 const day = { 0: '日', 1: '月', 2: '火', 3: '水', 4: '木', 5: '金', 6: '土' };
 
-
 window.onload = function () {
     $(function () {
 

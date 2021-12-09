@@ -30,6 +30,11 @@ class HomeController extends Controller
         return view('home',['grades' => $grades, 'kids' => $kids]);
     }
 
+    public function procedure()
+    {
+        return view('procedure');
+    }
+
     public function getKids(Request $request, Kid $kid)
     {
         $grade_id = $request['grade'];

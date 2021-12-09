@@ -39,11 +39,9 @@ Route::post('/password/reset',[Auth\ResetPasswordController::class,'reset']);
 Route::group(['middleware' => ['auth','can:user-higher']], function(){
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('grades', [GradesController::class, 'index'])->name('grades.index');
-
 
     //レコード登録関連
-    Route::resource('records', RecordsController::class)->only(['index','create','store']);
+    Route::resource('records', RecordsController::class)->only(['create','store']);
     //降園記録
     Route::post('records/{record}/leave', [RecordsController::class, 'leave']);
     //園児関連(閲覧のみ)
@@ -59,7 +57,9 @@ Route::group(['middleware' => ['auth','can:user-higher']], function(){
 Route::group(['middleware' => ['auth','can:admin-higher']],function(){
 
     //レコード閲覧・出力
-    Route::resource('records',RecordsController::class)->only(['edit', 'update', 'destroy']);
+    Route::resource('records',RecordsController::class)->only(['index', 'edit', 'update', 'destroy']);
+    //各種登録画面
+    Route::get('/procedure',[HomeController::class,'procedure'])->name('procedure');
     //園児関連
     Route::resource('kids',KidsController::class)->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
     //休園日登録
